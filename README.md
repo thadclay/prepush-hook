@@ -7,6 +7,30 @@ Thanks to [nlf] for his [precommit-hook] project. prepush-hook borrows heavily f
 [nlf]:https://github.com/nlf
 [precommit-hook]:https://github.com/nlf/precommit-hook
 
+Installation
+-----
+
+    npm install prepush-hook
+
+
+Everything else is automatic!
+
+I recommend putting precommit-hook in your project's devDependencies to make sure that anyone who may be contributing to your project will have the hook installed.
+
+```
+{
+  "name": "your_project",
+  "description": "just an example",
+  "scripts": {
+    "validate": "./command/to/run",
+    "test": "./other/command"
+  },
+  "devDependencies": {
+    "precommit-hook": "latest"
+  }
+}
+```
+
 Usage
 -----
 
@@ -79,30 +103,6 @@ You may configure what scripts will be run by the hook, by passing an array of s
 
 This example would run only the `lint` and `test` scripts, in that order.
 
-Usage
------
-
-    npm install prepush-hook
-
-
-Everything else is automatic!
-
-I recommend putting precommit-hook in your project's devDependencies to make sure that anyone who may be contributing to your project will have the hook installed.
-
-```
-{
-  "name": "your_project",
-  "description": "just an example",
-  "scripts": {
-    "validate": "./command/to/run",
-    "test": "./other/command"
-  },
-  "devDependencies": {
-    "precommit-hook": "latest"
-  }
-}
-```
-
 JSHint Defaults
 ---------------
 
@@ -111,13 +111,14 @@ The default `.jshintrc` looks like the following:
 ```javascript
 {
   "node": true, // node environment
-
   "curly": true, // enforce using curly braces around blocks
   "latedef": true, // enforce defining a variable before using it
-  "quotmark": true, // allows either " or ' but you must be consistent
   "undef": true, // error on use of undefined variables
   "unused": true, // error on variables that are defined but never used
   "trailing": true // error on trailing whitespace
+  "eqeqeq": true // prohibits the use of == and != in favor of === and !==
+  "camelcase": true // force all variable names to use either camelCase style or UPPER_CASE
+  "maxlen": true // enforce line length maximum of 80
 }
 ```
 
