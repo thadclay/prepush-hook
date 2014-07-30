@@ -1,0 +1,56 @@
+#!/usr/bin/env node
+
+var fs = require('fs');
+var path = require('path');
+var utils = require('../utils');
+
+var projectRoot = utils.findProjectRoot();
+
+installHook();
+configJshint();
+
+function installHook() {
+  utils.findGitRoot(function (err, root) {
+    var sourcePath;
+    var destPath;
+
+    if (err) {
+      var message = 'This project doesn\'t appear to be a git repository. ' +
+        'To enable the pre-push hook, run `git init` followed ' +
+        'by `npm run prepush-hook install`.';
+      console.error(message);
+    } else {
+      sourcePath = path.join(__dirname, 'pre-push');
+      destPath = path.join(root, '.git', 'hooks', 'pre-push');
+
+      console.log('Creating .git/hooks/pre-push...');
+      fs.writeFileSync(destPath, fs.readFileSync(sourcePath, 'utf8').replace('{{projectRoot}}', projectRoot.replace(/\\/g, '\\\\')));
+      fs.chmodSync(destPath, '755');
+    }
+  });
+}
+
+function configJshint() {
+  // if linting is disabled, or is not jshint, don't bother configuring it
+  var package = require(utils.findPackageJson());
+  if ((package.scripts && package.scripts.lint && !/^jshint/.test(package.scripts.lint)) ||
+    (package.prepush && !package.prepush.filter(function (p) { return p === 'lint'; }).length)) {
+    return;
+  }
+
+  var ignoreSource = path.resolve(__dirname, '..', 'files', 'jshintignore');
+  var ignoreDest = path.join(projectRoot, '.jshintignore');
+  var configSource = path.resolve(__dirname, '..', 'files', 'jshintrc');
+  var configDest = path.join(projectRoot, '.jshintrc');
+
+  if (!fs.existsSync(ignoreDest)) {
+    console.log('Creating default .jshintignore...');
+    fs.writeFileSync(ignoreDest, fs.readFileSync(ignoreSource));
+  }
+
+  if (!fs.existsSync(configDest) && !package.jshintConfig) {
+    console.log('Creating default .jshintrc...');
+    fs.writeFileSync(configDest, fs.readFileSync(configSource));
+  }
+}
+

@@ -1,0 +1,19 @@
+#!/usr/bin/env node
+
+var fs = require('fs');
+var path = require('path');
+var utils = require('../utils');
+
+var projectRoot = utils.findProjectRoot();
+
+utils.findGitRoot(function (err, root) {
+  if (err) {
+    var message = 'This project doesn\'t appear to be a git repository. ' +
+      'Skipping uninstallation...';
+    console.error(message);
+  } else {
+    console.log('Removing .git/hooks/pre-push...');
+    fs.unlinkSync(path.join(root, '.git', 'hooks', 'pre-push'));
+  }
+});
+

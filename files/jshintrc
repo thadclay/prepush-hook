@@ -1,0 +1,12 @@
+{
+  "node": true,
+  "curly": true,
+  "latedef": true,
+  "quotmark": true,
+  "undef": true,
+  "unused": true,
+  "trailing": true,
+  "eqeqeq": true,
+  "camelcase": true,
+  "maxlen": 80
+}

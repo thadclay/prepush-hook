@@ -1,0 +1,27 @@
+{
+  "name": "prepush-hook",
+  "version": "0.0.0",
+  "description": "A useful pre-push hook for git based projects that lints and runs npm test",
+  "bin": {
+    "hook_install": "./bin/install",
+    "hook_uninstall": "./bin/uninstall",
+    "pre-push": "./bin/pre-push"
+  },
+  "scripts": {
+    "install": "hook_install",
+    "uninstall": "hook_uninstall"
+  },
+  "peerDependencies": {
+    "jshint": "~2.4.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thadclay/prepush-hook.git"
+  },
+  "author": "Thaddaeus Clay <thadclay@gmail.com> (https://github.com/thadclay)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thadclay/prepush-hook/issues"
+  },
+  "homepage": "https://github.com/thadclay/prepush-hook"
+}
