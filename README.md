@@ -118,7 +118,7 @@ The default `.jshintrc` looks like the following:
   "trailing": true // error on trailing whitespace
   "eqeqeq": true // prohibits the use of == and != in favor of === and !==
   "camelcase": true // force all variable names to use either camelCase style or UPPER_CASE
-  "maxlen": true // enforce line length maximum of 80
+  "maxlen": 80 // enforce line length maximum of 80
 }
 ```
 
